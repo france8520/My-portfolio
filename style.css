@@ -264,7 +264,7 @@ a:focus {
 .side-element svg {
   width: 20px;
   height: 20px;
-  fill: currentColor;
+  fill: none;
 }
 
 .email-wrapper a {
@@ -343,25 +343,35 @@ a:focus {
 .about-img {
   position: relative;
   max-width: 300px;
+  perspective: 1000px;
 }
 
 .about-img .img-wrapper {
   display: block;
   position: relative;
   width: 100%;
-  border-radius: var(--border-radius);
+  border-radius: 15px;
   background-color: var(--green);
   z-index: 1;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  box-shadow: 0 20px 30px -10px rgba(2, 12, 27, 0.7);
+}
+
+.about-img .img-wrapper:hover {
+  transform: rotateY(-7deg) rotateX(2deg) scale(1.01);
+  box-shadow: 0 30px 50px -15px rgba(100, 255, 218, 0.3);
 }
 
 .about-img .img-wrapper img {
   position: relative;
-  border-radius: var(--border-radius);
+  border-radius: 15px;
   mix-blend-mode: multiply;
   filter: grayscale(100%) contrast(1);
   transition: var(--transition);
   width: 100%;
   height: auto;
+  display: block;
 }
 
 .about-img .img-wrapper:hover img {
