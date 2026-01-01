@@ -1,278 +1,363 @@
+:root {
+  --bg-color: #050a14;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --text-main: #ffffff;
+  --text-muted: #b3c7d1;
+  --accent-cyan: #48cae4;
+  /* Ocean Blue (Lighter) */
+  --accent-blue: #0077b6;
+  /* Ocean Blue (Darker) */
+  --gradient-main: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  --font-main: "Poppins", sans-serif;
+  --transition-speed: 0.3s;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    background-color: #000;
-    color: #fff;
-    line-height: 1.6;
-    overflow-x: hidden;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* Video Background Styles */
+
 #background-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    opacity: 0.3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.4;
 }
 
+/* Header & Glassmorphism */
 .header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 100;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1.5rem 5%;
+  background: rgba(5, 10, 20, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  /* Center for now, or space-between if logo exists */
+  transition: all var(--transition-speed) ease;
 }
 
 .navbar {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
+  display: flex;
+  gap: 40px;
 }
 
 .navbar a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all var(--transition-speed);
+  position: relative;
 }
 
-.navbar a:hover {
-    color: #ccc;
+.navbar a:hover,
+.navbar a.active {
+  color: var(--accent-cyan);
+}
+
+.navbar a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background: var(--gradient-main);
+  transition: width var(--transition-speed);
+}
+
+.navbar a:hover::after {
+  width: 100%;
 }
 
 .hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 20px;
-    perspective: 1000px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 100px 20px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 71, 255, 0.1) 0%, rgba(5, 10, 20, 0) 70%);
+  animation: pulse-glow 10s infinite alternate;
+  z-index: -1;
 }
 
 .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: var(--gradient-main);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fade-in-up 0.8s ease-out;
 }
 
 .hero p {
-    font-size: 1.5rem;
-    color: #ccc;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  animation: fade-in-up 1s ease-out;
 }
 
 .profile-img {
-    width: 200px;
-    height: 275px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-    transform-style: preserve-3d;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  /* Circle looks more modern for profiles usually, or keep rounded rect */
+  margin-bottom: 30px;
+  object-fit: cover;
+  border: 4px solid rgba(0, 242, 234, 0.3);
+  box-shadow: 0 0 30px rgba(0, 71, 255, 0.3);
+  animation: float 6s ease-in-out infinite;
 }
 
+/* Removing the old 3D hover effect in favor of float, but adding a glow on hover */
 .profile-img:hover {
-    transform: rotateX(10deg) rotateY(-10deg) scale(1.03);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 50px rgba(0, 242, 234, 0.5);
 }
 
 .section {
-    padding: 100px 20px;
-    max-width: 800px;
-    margin: 0 auto;
+  padding: 100px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .section h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #fff;
-    padding-bottom: 10px;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  display: inline-block;
+  position: relative;
+  color: var(--text-main);
+  padding-bottom: 15px;
+  border: none;
+}
+
+.section h2::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 4px;
+  bottom: 0;
+  left: 0;
+  background: var(--gradient-main);
+  border-radius: 2px;
 }
 
 .section ul {
-    list-style: none;
+  list-style: none;
+  /* Default for non-skill lists, override for skills */
+  padding: 0;
+}
+
+#skills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+#skills li {
+  background: rgba(0, 242, 234, 0.05);
+  color: var(--accent-cyan);
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 242, 234, 0.2);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: default;
+  margin-bottom: 0;
+  /* Override generic li margin */
+}
+
+#skills li:hover {
+  background: var(--accent-cyan);
+  color: var(--bg-color);
+  box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
+  transform: translateY(-3px);
 }
 
 .section li {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-.project, .education-item {
-    margin-bottom: 30px;
+.project,
+.education-item {
+  background: var(--bg-card);
+  padding: 30px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project:hover,
+.education-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 242, 234, 0.3);
+}
+
+.project h3,
+.education-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--accent-cyan);
 }
 
 .button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #fff;
-    color: #000;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    margin-right: 10px;
+  display: inline-block;
+  padding: 12px 30px;
+  background: transparent;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  border: 2px solid var(--accent-cyan);
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-right: 15px;
+  margin-top: 15px;
 }
 
 .button:hover {
-    background-color: #ccc;
+  background: var(--accent-cyan);
+  color: var(--bg-color);
+  box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
 }
 
-@media (min-width: 1200px) {
-  .logo {
-    font-size: 28px;
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
   }
 
-  .navbar a {
-    font-size: 17px;
-    margin-left: 30px;
-  }
-
-  .card {
-    width: 240px;
-    height: 380px;
-  }
-
-  h2.white-text {
-    font-size: 24px;
+  50% {
+    transform: translateY(-20px);
   }
 }
 
+@keyframes pulse-glow {
+  0% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
 
+  100% {
+    transform: scale(1.2);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 1024px) {
   .header {
-    padding: 20px 80px;
+    padding: 20px 40px;
   }
 
-  .logo {
-    font-size: 26px;
-  }
-
-  .navbar a {
-    font-size: 16px;
-    margin-left: 25px;
-  }
-
-  .card {
-    width: 220px;
-    height: 350px;
-    margin-top: 120px;
-  }
-
-  h2.white-text {
-    font-size: 22px;
-  }
-
-  .card img:hover {
-    transform: rotateX(5deg) rotateY(-5deg) scale(1.03);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  .hero h1 {
+    font-size: 3rem;
   }
 }
 
 @media (max-width: 768px) {
   .header {
-    padding: 18px 60px;
+    padding: 15px 20px;
   }
 
-  .logo {
-    font-size: 24px;
+  .navbar {
+    gap: 20px;
   }
 
   .navbar a {
-    font-size: 15px;
-    margin-left: 20px;
+    font-size: 0.9rem;
   }
 
-  .card {
-    width: 200px;
-    height: 320px;
-    margin-top: 130px;
+  .hero h1 {
+    font-size: 2.5rem;
   }
 
-  h2.white-text {
-    font-size: 20px;
-  }
-
-  .card img:hover {
-    transform: rotateX(3deg) rotateY(-3deg) scale(1.02);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  .section h2 {
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 600px) {
   .header {
-    padding: 15px 20px;
     flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .logo {
-    font-size: 22px;
-    margin-bottom: 10px;
+    gap: 15px;
+    padding: 15px;
   }
 
   .navbar {
-    display: flex;
     flex-direction: column;
+    /* Stack links on mobile */
+    gap: 15px;
+    align-items: center;
     width: 100%;
   }
 
-  .navbar a {
-    margin-left: 0;
-    margin-bottom: 8px;
-    font-size: 14px;
+  .navbar a::after {
+    display: none;
+    /* Remove underline animation on mobile if it's tricky, or keep it */
   }
 
-  .card {
+  .profile-img {
     width: 180px;
-    height: 280px;
-    margin-top: 150px;
+    height: 180px;
   }
 
-  h2.white-text {
-    font-size: 18px;
-    margin-top: 15px;
-  }
-
-  .card img {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .card img:hover {
-    transform: scale(1.01);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-}
-
-/* For very large screens, make content bigger */
-@media (min-width: 1441px) {
-  .header {
-    padding: 40px 150px;
-  }
-
-  .logo {
-    font-size: 36px;
-  }
-
-  .navbar a {
-    font-size: 20px;
-    margin-left: 40px;
-  }
-
-  .card {
-    width: 300px;
-    height: 450px;
-  }
-
-  h2.white-text {
-    font-size: 28px;
+  .section {
+    padding: 60px 20px;
   }
 }
